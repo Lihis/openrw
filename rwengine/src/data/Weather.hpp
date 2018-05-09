@@ -39,6 +39,13 @@ public:
                       float a, float tod);
 
     std::vector<Entry> entries;
+
+    // TODO: This weather list applies only for GTA III
+    const uint16_t WeatherList[64] = {
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 1, 0,
+            0, 0, 1, 3, 3, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2,
+            2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 2, 1
+    };
 };
 
 #endif

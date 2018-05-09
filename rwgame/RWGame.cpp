@@ -471,6 +471,7 @@ void RWGame::tick(float dt) {
     State* currState = StateManager::get().states.back().get();
 
     static float clockAccumulator = 0.f;
+    static uint8_t prevGameHour = state.basic.gameHour;
     if (currState->shouldWorldUpdate()) {
         world->chase.update(dt);
 
@@ -491,6 +492,18 @@ void RWGame::tick(float dt) {
             }
             clockAccumulator -= 1.f;
         }
+
+        if (prevGameHour != state.basic.gameHour) {
+            prevGameHour = state.basic.gameHour;
+            state.basic.lastWeather = state.basic.nextWeather;
+
+            // TODO: VC and SA has more than 3 weather conditions
+            if (state.basic.forcedWeather > 3) {
+                state.basic.weatherType <= 64 ? ++state.basic.weatherType : 0;
+                state.basic.nextWeather = data.weather.WeatherList[state.basic.weatherType];
+            }
+        }
+        state.basic.weatherInterpolation = state.basic.gameMinute / 60.f;
 
         // Clean up old VisualFX
         for (int i = 0; i < static_cast<int>(world->effects.size()); ++i) {

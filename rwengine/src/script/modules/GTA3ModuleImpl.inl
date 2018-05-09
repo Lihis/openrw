@@ -4992,7 +4992,9 @@ void opcode_01b5(const ScriptArguments& args, const ScriptWeather arg1) {
     @arg weatherID Weather ID
 */
 void opcode_01b6(const ScriptArguments& args, const ScriptWeather weatherID) {
+    args.getState()->basic.lastWeather = weatherID;
     args.getState()->basic.nextWeather = weatherID;
+    args.getState()->basic.forcedWeather = weatherID;
 }
 
 /**
@@ -5001,8 +5003,7 @@ void opcode_01b6(const ScriptArguments& args, const ScriptWeather weatherID) {
     opcode 01b7
 */
 void opcode_01b7(const ScriptArguments& args) {
-    RW_UNIMPLEMENTED_OPCODE(0x01b7);
-    RW_UNUSED(args);
+    args.getState()->basic.forcedWeather = UINT16_MAX;
 }
 
 /**

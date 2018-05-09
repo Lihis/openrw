@@ -20,7 +20,7 @@ BasicState::BasicState()
     , timeScale2{0}
     , lastWeather{0}
     , nextWeather{0}
-    , forcedWeather{0}
+    , forcedWeather{UINT16_MAX}
     , weatherInterpolation{1.0}
     , weatherType{0}
     , cameraData{0}
