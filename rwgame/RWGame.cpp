@@ -497,9 +497,13 @@ void RWGame::tick(float dt) {
             prevGameHour = state.basic.gameHour;
             state.basic.lastWeather = state.basic.nextWeather;
 
-            // TODO: VC and SA has more than 3 weather conditions
+            // TODO: VC and SA has more than 4 weather conditions
             if (state.basic.forcedWeather > 3) {
-                state.basic.weatherType <= 64 ? ++state.basic.weatherType : 0;
+                if (state.basic.weatherType < 63) {
+                    ++state.basic.weatherType;
+                } else {
+                    state.basic.weatherType = 0;
+                }
                 state.basic.nextWeather = data.weather.WeatherList[state.basic.weatherType];
             }
         }
