@@ -1,5 +1,5 @@
 image:
-  - Visual Studio 2017
+  - Visual Studio 2022
 
 clone_depth: 1
 shallow_clone: false
@@ -11,8 +11,8 @@ cache:
 environment:
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
   ALSOFT_DRIVERS: null
-  PYTHON: "C:\\Python36-x64"
-  CMAKE_GENERATOR_BASE: "Visual Studio 15 2017"
+  PYTHON: "C:\\Python313-x64"
+  CMAKE_GENERATOR_BASE: "Visual Studio 17 2022"
   NAME_SUFFIX: "windows"
   USE_CONAN: 1
 
@@ -33,8 +33,7 @@ init:
   - cmake --version
   - msbuild /version
   - pip3 install conan
-  - conan user
-  - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+  - conan profile detect
 
 install:
   - cd "%APPVEYOR_BUILD_FOLDER%"

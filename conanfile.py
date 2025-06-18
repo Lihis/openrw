@@ -1,4 +1,5 @@
-from conans import ConanFile, CMake
+from conan import ConanFile
+from conan.tools.cmake import CMake
 
 
 class OpenrwConan(ConanFile):
@@ -18,8 +19,8 @@ class OpenrwConan(ConanFile):
         'viewer': True,
         'tools': True,
         'profiling': True,
-        'bullet3:shared': False,
-        'sdl2:sdl2main': False,
+        'bullet3/*:shared': False,
+        'sdl2/*:sdl2main': False,
     }
 
     generators = 'cmake',
@@ -29,19 +30,19 @@ class OpenrwConan(ConanFile):
 
     _rw_dependencies = {
         'game': (
-            'openal/1.19.0@bincrafters/stable',
-            'bullet3/2.87@bincrafters/stable',
-            'glm/0.9.9.1@g-truc/stable',
-            'ffmpeg/4.0.2@bincrafters/stable',
-            'sdl2/2.0.9@bincrafters/stable',
-            'boost/1.68.0@conan/stable',
-            'bzip2/1.0.8@conan/stable',
+            'openal/1.19.1',
+            'bullet3/2.89',
+            'glm/0.9.9.8',
+            'ffmpeg/7.1.1',
+            'sdl/3.2.14',
+            'boost/1.88.0',
+            'bzip2/1.0.8',
         ),
         'viewer': (
-            'qt/5.12.0@bincrafters/stable',
+            'qt/5.15.16',
         ),
         'tools': (
-            'freetype/2.9.0@bincrafters/stable',
+            'freetype/2.13.2',
         ),
     }
 
