@@ -98,21 +98,6 @@ if(USE_CONAN)
         if(NOT CONAN_BIN)
             message(FATAL_ERROR "Cannot find conan.")
         endif()
-
-        execute_process(
-            COMMAND "${CONAN_BIN}" user
-            RESULT_VARIABLE RES
-            )
-        if(RES)
-            message(FATAL_ERROR "Configuration of conan failed")
-        endif()
-        execute_process(
-            COMMAND "${CONAN_BIN}" remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
-            RESULT_VARIABLE RES
-            )
-        if(RES)
-            message(FATAL_ERROR "Adding bincrafters remote failed")
-        endif()
     endif()
 
     if(BUILD_TYPE STREQUAL "Debug")
@@ -130,8 +115,9 @@ if(USE_CONAN)
     execute_process(
         COMMAND
             "${CONAN_BIN}" install "${CTEST_SOURCE_DIRECTORY}"
+                -pr:a "${CMAKE_CURRENT_SOURCE_DIR}/conanprofile"
                 -s arch=${CONAN_ARCH} -s build_type=${CONAN_CONFIGURATION}
-                -o viewer=${_BUILD_VIEWER} --build missing
+                -o "OpenrwConan/*:viewer=${_BUILD_VIEWER}" --build never
         WORKING_DIRECTORY "${CTEST_BINARY_DIRECTORY}"
         RESULT_VARIABLE RES
         )
@@ -145,7 +131,7 @@ if(USE_CONAN)
 
     execute_process(
         COMMAND
-            "${CONAN_BIN}" remove -f -b -s "*"
+            "${CONAN_BIN}" remove -c "*"
         WORKING_DIRECTORY "${CTEST_BINARY_DIRECTORY}"
         RESULT_VARIABLE RES
         )

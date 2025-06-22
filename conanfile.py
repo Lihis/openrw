@@ -4,7 +4,7 @@ from conan.tools.cmake import CMake
 
 class OpenrwConan(ConanFile):
     name = 'openrw'
-    version = 'master'
+    version = 'main'
     license = 'GPL3'
     url = 'https://github.com/rwengine/openrw'
     description = "OpenRW 'Open ReWrite' is an un-official open source recreation of the classic Grand Theft Auto III game executable"
@@ -20,19 +20,18 @@ class OpenrwConan(ConanFile):
         'tools': True,
         'profiling': True,
         'bullet3/*:shared': False,
-        'sdl2/*:sdl2main': False,
     }
 
-    generators = 'cmake',
+    generators = 'CMakeDeps', 'CMakeToolchain'
     exports_sources = 'CMakeLists.txt', 'cmake_configure.cmake', 'cmake_options.cmake', 'CMakeCPack.cmake', 'COPYING', \
                       'cmake/modules/*', 'benchmarks', 'rwcore/*', 'rwengine/*', 'rwgame/*', 'rwviewer/*', \
                       'rwtools/*', 'tests/*', 'external/*'
 
     _rw_dependencies = {
         'game': (
-            'openal/1.19.1',
-            'bullet3/2.89',
-            'glm/0.9.9.8',
+            'openal/1.22.2',
+            'bullet3/3.25',
+            'glm/1.0.1',
             'ffmpeg/7.1.1',
             'sdl/3.2.14',
             'boost/1.88.0',
@@ -48,7 +47,7 @@ class OpenrwConan(ConanFile):
 
     def configure(self):
         if self.options.viewer:
-            self.options['qt'].opengl = 'desktop'
+            self.options['qt'].opengl = 'dynamic'
 
     def requirements(self):
         for dep in self._rw_dependencies['game']:
@@ -89,4 +88,4 @@ class OpenrwConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ['rwengine', 'rwlib']
-        self.cpp_info.stdcpp = 14
+        self.cpp_info.stdcpp = 17

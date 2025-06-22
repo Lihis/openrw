@@ -33,7 +33,6 @@ init:
   - cmake --version
   - msbuild /version
   - pip3 install conan
-  - conan profile detect
 
 install:
   - cd "%APPVEYOR_BUILD_FOLDER%"

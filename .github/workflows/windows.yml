@@ -1,0 +1,30 @@
+name: Windows
+
+on:
+  push:
+    branches: [ "main", "try-fix-appveyor" ]
+  pull_request:
+    branhces: [ "main" ]
+  # Allow to run manually
+  workflow_dispatch:
+
+env:
+  ALSOFT_DRIVERS: null
+  CMAKE_GENERATOR_BASE: "Visual Studio 17 2022"
+  NAME_SUFFIX: "windows"
+  USE_CONAN: 1
+  CONFIGURATION: "RelWithDebInfo"
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-2022
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install and setup Conan
+        uses: conan-io/setup-conan@v1
+      - name: Build and Test
+        run: ctest -VV -S "${{ github.workspace }}/cmake/ctest/script_ci.ctest"
