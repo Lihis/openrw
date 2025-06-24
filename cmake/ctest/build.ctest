@@ -115,9 +115,8 @@ if(USE_CONAN)
     execute_process(
         COMMAND
             "${CONAN_BIN}" install "${CTEST_SOURCE_DIRECTORY}"
-                -pr:a "${CMAKE_CURRENT_SOURCE_DIR}/conanprofile"
                 -s arch=${CONAN_ARCH} -s build_type=${CONAN_CONFIGURATION}
-                -o "OpenrwConan/*:viewer=${_BUILD_VIEWER}" --build never
+                -o "OpenrwConan/*:viewer=${_BUILD_VIEWER}" --build missing
         WORKING_DIRECTORY "${CTEST_BINARY_DIRECTORY}"
         RESULT_VARIABLE RES
         )
